@@ -1,4 +1,4 @@
-import React, { createContext, useState,useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { BASE_URL } from "./config";
@@ -12,14 +12,17 @@ export const AuthProvider = ({ children }) => {
 
     const register = (name, email, password, mobile, role) => {
         setIsLoading(true);
-        axios
-            .post(`${BASE_URL}api/auth/register`, {
-                mobile,
-                password,
-                name,
-                email,
-                role,
-            })
+        const data = {
+            mobile: parseInt(mobile),
+            password,
+            name,
+            email,
+            role,
+        };
+        const options = {
+            headers: { "content-type": "application/json" }
+        }
+        axios.post(`${BASE_URL}api/auth/register`, data)
             .then(res => {
                 console.log("hello");
                 let userInfo = res.data;
@@ -32,8 +35,10 @@ export const AuthProvider = ({ children }) => {
                 console.log('userToken' + userInfo.token);
             })
             .catch(e => {
-                console.log(`hello: ${e.response.message}`);
-                console.log(`hello: ${e.data.message}`);
+                console.log(`hello: ${e}`);
+                // console.log(`Response #####: ${e.response}`);
+                console.log(`Response: ${JSON.stringify(e.response)}`);
+                // console.log(`hello: ${e.data.message}`);
                 setIsLoading(false);
             });
     };
