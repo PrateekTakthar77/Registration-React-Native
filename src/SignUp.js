@@ -24,7 +24,7 @@ const SignUp = () => {
       alert('Please fill in all the mandatory fields.');
       return;
     }
-    console.log('Name',name, 'Mobile',mobile, 'Email',email, 'Role',role, 'Password',password);
+    // console.log('Name',name, 'Mobile',mobile, 'Email',email, 'Role',role, 'Password',password);
     // then Call the register function to register
     register(name, email, password, mobile, role);
   };
