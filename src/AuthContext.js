@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     const [userInfo, setUserInfo] = useState(null);
 
     const register = (name, email, password, mobile, role) => {
-        setIsLoading(true);
+        
         console.log('Name', name, 'Mobile', mobile, 'Email', email, 'Role', role, 'Password', password);
         const data = {
             mobile,
@@ -23,12 +23,14 @@ export const AuthProvider = ({ children }) => {
         const options = {
             headers: { "content-type": "application/json" }
         }
+        setIsLoading(true);
         axios.post(`${BASE_URL}api/auth/register`, data)
             .then(res => {
                 console.log("hello");
                 let userInfo = res.data;
                 console.log(res.data);
                 console.log(userInfo.token);
+                setIsLoading(false)
                 setUserInfo(userInfo);
                 setUserToken(userInfo.token);
                 AsyncStorage.setItem('userinfo', JSON.stringify(userInfo));
