@@ -12,8 +12,9 @@ export const AuthProvider = ({ children }) => {
 
     const register = (name, email, password, mobile, role) => {
         setIsLoading(true);
+        console.log('Name', name, 'Mobile', mobile, 'Email', email, 'Role', role, 'Password', password);
         const data = {
-            mobile: parseInt(mobile),
+            mobile,
             password,
             name,
             email,

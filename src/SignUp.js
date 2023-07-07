@@ -26,7 +26,7 @@ const SignUp = () => {
     }
     console.log('Name',name, 'Mobile',mobile, 'Email',email, 'Role',role, 'Password',password);
     // then Call the register function to register
-    register(name, mobile, email, role, password);
+    register(name, email, password, mobile, role);
   };
   return (
     <ScrollView>
