@@ -6,6 +6,7 @@ import { AuthContext, AuthProvider } from "./src/AuthContext";
 import Wait from "./src/Wait";
 import SignUp from "./src/SignUp";
 import Hello from "./src/Hello";
+import LogIn from "./src/Login";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,7 @@ function App() {
         ) : (
           <Stack.Screen
             name="SignUp"
-            component={SignUp}
+            component={LogIn}
             options={{ headerShown: false }}
           />
         )}

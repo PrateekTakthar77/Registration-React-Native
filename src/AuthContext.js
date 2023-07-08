@@ -10,6 +10,28 @@ export const AuthProvider = ({ children }) => {
     const [userToken, setUserToken] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
 
+    const login = (username, password) => {
+        setIsLoading(true);
+        axios.post(`${BASE_URL}api/auth/login`, {
+            "mobile": username,
+            "password": password,
+        }).then(res => {
+            // console.log(res.data);
+            let userInfo = res.data;
+            setIsLoading(false)
+            console.log(userInfo.token);
+            setUserInfo(userInfo);
+            setUserToken(userInfo.token);
+            AsyncStorage.setItem('userinfo', JSON.stringify(userInfo));
+            AsyncStorage.setItem('userToken', userInfo.token);
+            console.log('userToken' + userInfo.token);
+        })
+            .catch(e => {
+                console.log(`Login error hello ${e}`);
+                setIsLoading(false);
+            })
+    }
+
     const register = (name, email, password, mobile, role) => {
         
         console.log('Name', name, 'Mobile', mobile, 'Email', email, 'Role', role, 'Password', password);
@@ -33,7 +55,7 @@ export const AuthProvider = ({ children }) => {
                 AsyncStorage.setItem('userinfo', JSON.stringify(userInfo));
                 AsyncStorage.setItem('userToken', userInfo.token);
                 // UserToken is Getting console log
-                console.log('userToken     ' + userInfo.token);
+                console.log('userToken-->' + userInfo.token);
             })
             .catch(e => {
                 console.log(`hello: ${e}`);
@@ -73,7 +95,7 @@ export const AuthProvider = ({ children }) => {
     }, [])
     return (
         <AuthContext.Provider
-            value={{ register, logout, isLoading, userToken, userInfo }}>
+            value={{ register, logout,login, isLoading, userToken, userInfo }}>
             {children}
         </AuthContext.Provider>
     );
